@@ -14,6 +14,12 @@ $(() => {
                    console.log('bad request');
        }
      })
+
+    const $clickCard = $('<button>').text('Create Cards').addClass('newCard');
+    $('body').append($clickCard);
+
+
+
   //Drawing a single card at random from the deck of cards.
      $.ajax({
               type: "GET",
@@ -22,10 +28,16 @@ $(() => {
               success: (data)=>{
                  console.log(data);
 //Creates a for loop that appends every card image to the body, for now
-                 for (let i = 0; i < data.cards.length; i++){
-                   const $newCard = $('<img>').attr('src', data.cards[i].image);
-                   $('body').append($newCard);
-               }
+            $clickCard.on('click', (event) => {
+              for (let i = 0; i < data.cards.length; i++){
+                const $newCard = $('<img>').attr('src', data.cards[i].image);
+                $('body').append($newCard);
+                    }
+                 // for (let i = 0; i < data.cards.length; i++){
+                 //   const $newCard = $('<img>').attr('src', data.cards[i].image);
+                 //   $clickCard.on('click',
+                   // $('body').append($newCard);
+               })
               },
               error: ()=>{
                       console.log('bad request');
