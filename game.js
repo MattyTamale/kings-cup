@@ -25,12 +25,10 @@ $(() => {
     const $checkRules = $('<button>').text('Check Rules').addClass('gameButton');
     $('.gameButtons').append($checkRules);
 
-    const $resetGame = $('<button>').text('Restart Game').addClass('gameButton');
+    const $resetGame = $('<button>').text('Reset Game').addClass('gameButton');
     $('.gameButtons').append($resetGame);
 
-
-
-
+    const cards = [];
 
   //Drawing a single card at random from the deck of cards.
      $.ajax({
@@ -42,13 +40,21 @@ $(() => {
 //Creates a for loop that appends every card image to the body, for now
             $clickCard.on('click', (event) => {
               for (let i = 0; i < data.cards.length; i++){
-                const $newCard = $('<img>').addClass('gameCard').attr('src', data.cards[i].image);
-                $('.gameTable').append($newCard);
-                    }
+                // const $newCard = $('<img>').addClass('gameCard').attr('src', data.cards[i].image);
+                // $('.gameTable').append($newCard);
+                //     }
+                cards.push(data.cards[i]);
+                console.log(cards[0]);
+                    const $newCard = $('<img>').addClass('gameCardBack').attr('src', 'https://www.atomsindustries.com/assets/images/items/asd1743/tallyho-back.png');
+                    $('.gameTable').append($newCard);
+                        }
                  // for (let i = 0; i < data.cards.length; i++){
                  //   const $newCard = $('<img>').attr('src', data.cards[i].image);
                  //   $clickCard.on('click',
                    // $('body').append($newCard);
+               })
+               $(event.target).on('click', (event) => {
+                 $(event.target).changeClass('gameCard').attr('src', data.cards[i].image);
                })
               },
               error: ()=>{
@@ -80,25 +86,26 @@ $(() => {
         //     }
         //   })
 
+const $modal = $('#modal');
+const $closeBtn = $('#close');
 
-  // When the user scrolls the page, execute myFunction
-    window.addEventListener('scroll', (event) => {
-      myFunction();
-    })
+//Handlers
+const openModal = () => {
+  $modal.css('display', 'block');
+}
+const closeModal = () => {
+  $modal.css('display', 'none');
+}
 
-    // Get the navbar
-    var navbar = document.getElementById("gameButtons");
+//Listeners
+$checkRules.on('click', openModal);
 
-    // Get the offset position of the navbar
-    var sticky = navbar.offsetTop;
+$closeBtn.on('click', closeModal);
 
-    // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-    function myFunction() {
-      if (window.pageYOffset >= sticky) {
-        navbar.classList.add("sticky")
-      } else {
-        navbar.classList.remove("sticky");
-      }
-    }
+//removes all existing cards from the gameTable.
+$resetGame.on('click', (event) => {
+  $('.gameCardBack').remove();
+  $('.gameCard').remove();
+})
 
 });
