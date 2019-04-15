@@ -15,8 +15,20 @@ $(() => {
        }
      })
 
-    const $clickCard = $('<button>').text('Create Cards').addClass('newCard');
-    $('body').append($clickCard);
+
+  //Creating the various buttons that will interact with the game/provide the user with additional information.
+
+    //Game Start Button: generates 52 cards.
+    const $clickCard = $('<button>').text('Create Cards').addClass('gameButton');
+    $('.gameButtons').append($clickCard);
+
+    const $checkRules = $('<button>').text('Check Rules').addClass('gameButton');
+    $('.gameButtons').append($checkRules);
+
+    const $resetGame = $('<button>').text('Restart Game').addClass('gameButton');
+    $('.gameButtons').append($resetGame);
+
+
 
 
 
@@ -30,8 +42,8 @@ $(() => {
 //Creates a for loop that appends every card image to the body, for now
             $clickCard.on('click', (event) => {
               for (let i = 0; i < data.cards.length; i++){
-                const $newCard = $('<img>').attr('src', data.cards[i].image);
-                $('body').append($newCard);
+                const $newCard = $('<img>').addClass('gameCard').attr('src', data.cards[i].image);
+                $('.gameTable').append($newCard);
                     }
                  // for (let i = 0; i < data.cards.length; i++){
                  //   const $newCard = $('<img>').attr('src', data.cards[i].image);
@@ -67,5 +79,26 @@ $(() => {
         //                 console.log('bad request');
         //     }
         //   })
+
+
+  // When the user scrolls the page, execute myFunction
+    window.addEventListener('scroll', (event) => {
+      myFunction();
+    })
+
+    // Get the navbar
+    var navbar = document.getElementById("gameButtons");
+
+    // Get the offset position of the navbar
+    var sticky = navbar.offsetTop;
+
+    // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function myFunction() {
+      if (window.pageYOffset >= sticky) {
+        navbar.classList.add("sticky")
+      } else {
+        navbar.classList.remove("sticky");
+      }
+    }
 
 });
