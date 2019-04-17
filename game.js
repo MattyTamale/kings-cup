@@ -37,7 +37,7 @@ $(() => {
     // The card flipping function that will activate when clicking on a single card. It will pull the data image that is linked to the 'data-id attribute' in the initial API call.
     const flipCard = () => {
       let cardId = $(event.currentTarget).attr('data-id');
-      $(event.currentTarget).toggleClass('gameCard').attr('src', cards[cardId].image)
+      $(event.currentTarget).toggleClass('gameCard').attr('src', card[cardId].image)
     }
 
      //Drawing a single card at random from the deck of cards.
@@ -50,8 +50,7 @@ $(() => {
       //Creates a for loop that appends every card image to the body, for now
             $clickCard.on('click', (event) => {
               for (let i = 0; i < data.cards.length; i++){
-                card.push(data.cards[i].code);
-                card.push(data.cards[i].image)
+                  card.push(data.cards[i]);
                 console.log(card[i]);
                 const $newCard = $('<img>').addClass('gameCardBack');
                 $newCard.attr('src', 'https://www.atomsindustries.com/assets/images/items/asd1743/tallyho-back.png');
@@ -62,73 +61,73 @@ $(() => {
                 $('.gameTable').append($newCard);
                 }
             });
+            $checkRules.on('click', (event) => {
+              for (let i = 0; i < data.cards.length; i++){
+                const $cardInfo = $('<img>').addClass('cardInfo').attr('src', data.cards[i].image);
+                let currentImgIndex = 0;
+                let numOfImages = data.cards.length - 39;
+                console.log(numOfImages);
+                $('.next').on('click', () => {
+                  //hide the current image:
+                  $('.carousel-images').children().eq(currentImgIndex).hide();
+                  //increment the currentImgIndex
+                  if(currentImgIndex < numOfImages) {
+                    currentImgIndex++;
+                  } else {
+                    currentImgIndex = 0;
+                  }
+                  //show the next image:
+                  $('.carousel-images').children().eq(currentImgIndex).show();
+                })
+
+              //previous button:
+              $('.previous').on('click', () => {
+                //hide current image:
+                $('.carousel-images').children().eq(currentImgIndex).hide();
+                //decrement the currentImgIndex
+                if(currentImgIndex > 0) {
+                  currentImgIndex--;
+                } else {
+                  currentImgIndex = numOfImages;
+                }
+                //show the previous image:
+                $('.carousel-images').children().eq(currentImgIndex).show();
+              })
+                if (data.cards[i].code === "AS") {
+                  $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "2C") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "3D") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "4H") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "5S") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "6C") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "7D") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "8H") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "9S") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "10C") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "JD") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "QH") {
+                $('.carousel-images').append($cardInfo);
+              } else if (data.cards[i].code === "KS") {
+                $('.carousel-images').append($cardInfo);
+              }
+              }
+                 });
           },
               error: ()=>{
                       console.log('bad request');
           }
         })
 
-
-    const cardInfo = [];
-   //API call for setting up the carousel.
-    $.ajax({
-            type: "GET",
-            url: "https://deckofcardsapi.com/api/deck/new/?cards=AS,2C,3D,4H,5S,6C,7D,8H,9S,10C,JD,QH,KS",
-            url: "https://deckofcardsapi.com/api/deck/new/draw/?count=13",
-            dataType: "json",
-            success: (data)=>{
-              console.log(data);
-              //,2C,3D,4H,5S,5C,6C,7D,8H,9S,0C,JD,QH,KS
-         //Creates a for loop that appends every card image to the body, for now
-          $checkRules.on('click', (event) => {
-            for (let i = 0; i < data.cards.length; i++){
-              cardInfo.push(data.cards[i])
-              console.log(cardInfo[i]);
-            }
-               });
-             },
-                 error: ()=>{
-                         console.log('bad request');
-             }
-           })
-
-
-
-    //global variables:
-  // const $images = $('<div>').addClass('carousel-images');
-  // $('.carousel-container').append($images);
-  // let currentImgIndex = 0;
-  // let numOfImages = $('.carousel-images').children().length - 1;
-
-
-        //event listeners:
-        //next button:
-          $('.next').on('click', () => {
-            //hide the current image:
-            $('.carousel-images').children().eq(currentImgIndex).hide();
-            //increment the currentImgIndex
-            if(currentImgIndex < numOfImages) {
-              currentImgIndex++;
-            } else {
-              currentImgIndex = 0;
-            }
-            //show the next image:
-            $('.carousel-images').children().eq(currentImgIndex).show();
-          })
-
-        //previous button:
-        $('.previous').on('click', () => {
-          //hide current image:
-          $('.carousel-images').children().eq(currentImgIndex).hide();
-          //decrement the currentImgIndex
-          if(currentImgIndex > 0) {
-            currentImgIndex--;
-          } else {
-            currentImgIndex = numOfImages;
-          }
-          //show the previous image:
-          $('.carousel-images').children().eq(currentImgIndex).show();
-        })
 
 //Creating the Check Rules Modal; will eventually contain carousel.
 const $modal = $('#modal');

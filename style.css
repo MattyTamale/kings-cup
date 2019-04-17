@@ -16,6 +16,11 @@ h2 {
   margin-bottom: 1em;
 }
 
+p {
+  padding-left: 2em;
+  padding-right: 1em;
+}
+
 
 img {
   width: 25%;
@@ -41,7 +46,7 @@ img {
 
 #modal-textbox {
 	background-color: white;
-	height: 350px;
+	height: 550px;
 	width: 550px;
 	border-radius: 2px;
 	margin: 150px auto;
@@ -71,9 +76,9 @@ img {
   height: 10%;
   background-color: darkred;
   color: white;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-bottom: 10px;
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-bottom: 1em;
   padding: 5px;
   font-size: 14px;
   border-radius: 10px;
@@ -85,7 +90,6 @@ img {
   flex-wrap: wrap;
   align-items: center;
   align-content: space-around;
-  perspective: 1000px;
 }
 
 /* .flipper {
@@ -103,7 +107,6 @@ img {
 } */
 
 .gameCard {
-  z-index: 2;
   width: 20%;
   height: 20%;
   padding: 5px;
@@ -116,23 +119,27 @@ img {
 }
 
 .cardInfo {
-  width: 15%;
-  height:15%;
+  width: 80%;
+  height:80%;
 }
 
 
 .carousel-container {
-  width: 70%;
+  width: 50%;
+  height: 50%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  padding-left: 8em;
 }
 .carousel-images {
   width: 80%;
-  background: #fa8d8e;
+  background: #FFFFFF;
   padding: 10px;
   border-radius: 10px;
   box-sizing: border-box;
-  box-shadow: 2px 2px #f2cd99;
+  box-shadow: 2px 2px #000000;
 }
 .carousel-images img {
   width: 100%;
@@ -146,12 +153,14 @@ img {
 
 .carousel-button {
   align-self: center;
-  background: #f2cd99;
-  color: #888;
-  padding: 10px;
-  border-radius: 50%;
+  background: darkred;
+  color: #FFFFFF;
+  padding: .5em;
+  margin-left: .5em;
+  margin right: .5em;
+  border-radius: 20%;
   text-align: center;
-  box-shadow: 1px 1px #fa8d8e;
+  box-shadow: 1px 1px #000000;
 }
 .carousel-button:hover {
   cursor: pointer;
