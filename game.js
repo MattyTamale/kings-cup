@@ -31,11 +31,13 @@ $(() => {
     const $resetGame = $('<button>').text('Reset Game').addClass('gameButton');
     $('.gameButtons').append($resetGame);
 
-    const cards = [];
+    //An empty array for the card API data to be stored in for local use.
+    const card = [];
 
+    // The card flipping function that will activate when clicking on a single card. It will pull the data image that is linked to the 'data-id attribute' in the initial API call.
     const flipCard = () => {
       let cardId = $(event.currentTarget).attr('data-id');
-      $(event.currentTarget).attr('src', cards[cardId].image)
+      $(event.currentTarget).toggleClass('gameCard').attr('src', cards[cardId].image)
     }
 
      //Drawing a single card at random from the deck of cards.
@@ -48,58 +50,87 @@ $(() => {
       //Creates a for loop that appends every card image to the body, for now
             $clickCard.on('click', (event) => {
               for (let i = 0; i < data.cards.length; i++){
-                cards.push(data.cards[i]);
-                console.log(cards[i]);
-                const $newCard = $('<img>').addClass('gameCard');
+                card.push(data.cards[i].code);
+                card.push(data.cards[i].image)
+                console.log(card[i]);
+                const $newCard = $('<img>').addClass('gameCardBack');
                 $newCard.attr('src', 'https://www.atomsindustries.com/assets/images/items/asd1743/tallyho-back.png');
                 $newCard.attr('data-id', i);
                 $newCard.on('click', flipCard);
+                //save for later implementation:
+                // $('.flipper').append($newCard);
                 $('.gameTable').append($newCard);
                 }
-              });
-
-                //     const $newCard = $('<img>').addClass('gameCardBack').attr('src', 'https://www.atomsindustries.com/assets/images/items/asd1743/tallyho-back.png');
-                //     $('.gameTable').append($newCard);
-                //         }
-                 // for (let i = 0; i < data.cards.length; i++){
-                 //   const $newCard = $('<img>').attr('src', data.cards[i].image);
-                 //   $clickCard.on('click',
-                   // $('body').append($newCard);
-               },
+            });
+          },
               error: ()=>{
                       console.log('bad request');
           }
         })
-    //Created a Discard Pile:
-      // $.ajax({
-      //         type: "GET",
-      //          url: "https://deckofcardsapi.com/api/deck/new/pile/discard_pile/add/?cards=AS,2S",
-      //          dataType: "json",
-      //          success: (data)=>{
-      //            console.log(data);
-      //         },
-      //         error: ()=>{
-      //                 console.log('bad request');
-      //     }
-      //   })
-    //Created a listing of discarded cards for checking win/lose condition.
-        // $.ajax({
-        //         type: "GET",
-        //          url: "https://deckofcardsapi.com/api/deck/new/pile/discard_pile/list",
-        //          dataType: "json",
-        //          success: (data)=>{
-        //            console.log(data);
-        //         },
-        //         error: ()=>{
-        //                 console.log('bad request');
-        //     }
-        //   })
-// const cards = [];
-// let flipCard = () => {
-// 	const cardId = $('.gameCard').attr('data-id');
-// 	$('.gameCard').attr('src', 'data-id');
-// };
 
+
+    const cardInfo = [];
+   //API call for setting up the carousel.
+    $.ajax({
+            type: "GET",
+            url: "https://deckofcardsapi.com/api/deck/new/?cards=AS,2C,3D,4H,5S,6C,7D,8H,9S,10C,JD,QH,KS",
+            url: "https://deckofcardsapi.com/api/deck/new/draw/?count=13",
+            dataType: "json",
+            success: (data)=>{
+              console.log(data);
+              //,2C,3D,4H,5S,5C,6C,7D,8H,9S,0C,JD,QH,KS
+         //Creates a for loop that appends every card image to the body, for now
+          $checkRules.on('click', (event) => {
+            for (let i = 0; i < data.cards.length; i++){
+              cardInfo.push(data.cards[i])
+              console.log(cardInfo[i]);
+            }
+               });
+             },
+                 error: ()=>{
+                         console.log('bad request');
+             }
+           })
+
+
+
+    //global variables:
+  // const $images = $('<div>').addClass('carousel-images');
+  // $('.carousel-container').append($images);
+  // let currentImgIndex = 0;
+  // let numOfImages = $('.carousel-images').children().length - 1;
+
+
+        //event listeners:
+        //next button:
+          $('.next').on('click', () => {
+            //hide the current image:
+            $('.carousel-images').children().eq(currentImgIndex).hide();
+            //increment the currentImgIndex
+            if(currentImgIndex < numOfImages) {
+              currentImgIndex++;
+            } else {
+              currentImgIndex = 0;
+            }
+            //show the next image:
+            $('.carousel-images').children().eq(currentImgIndex).show();
+          })
+
+        //previous button:
+        $('.previous').on('click', () => {
+          //hide current image:
+          $('.carousel-images').children().eq(currentImgIndex).hide();
+          //decrement the currentImgIndex
+          if(currentImgIndex > 0) {
+            currentImgIndex--;
+          } else {
+            currentImgIndex = numOfImages;
+          }
+          //show the previous image:
+          $('.carousel-images').children().eq(currentImgIndex).show();
+        })
+
+//Creating the Check Rules Modal; will eventually contain carousel.
 const $modal = $('#modal');
 const $closeBtn = $('#close');
 
