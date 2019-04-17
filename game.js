@@ -16,47 +16,56 @@ $(() => {
      })
 
 
-  //Creating the various buttons that will interact with the game/provide the user with additional information.
+    //Creating the various buttons that will interact with the game/provide the user with additional information.
 
     //Game Start Button: generates 52 cards.
     const $clickCard = $('<button>').text('Create Cards').addClass('gameButton');
     $('.gameButtons').append($clickCard);
 
+    //Check Rules button to display the rule for each card.
     const $checkRules = $('<button>').text('Check Rules').addClass('gameButton');
     $('.gameButtons').append($checkRules);
 
+    //Reset Game button that will remove the current cards from the table.
+    //Currently does not reshuffle the cards when they are removed.
     const $resetGame = $('<button>').text('Reset Game').addClass('gameButton');
     $('.gameButtons').append($resetGame);
 
     const cards = [];
 
-  //Drawing a single card at random from the deck of cards.
+    const flipCard = () => {
+      let cardId = $(event.currentTarget).attr('data-id');
+      $(event.currentTarget).attr('src', cards[cardId].image)
+    }
+
+     //Drawing a single card at random from the deck of cards.
      $.ajax({
               type: "GET",
               url: "https://deckofcardsapi.com/api/deck/new/draw/?count=52",
               dataType: "json",
               success: (data)=>{
                  console.log(data);
-//Creates a for loop that appends every card image to the body, for now
+      //Creates a for loop that appends every card image to the body, for now
             $clickCard.on('click', (event) => {
               for (let i = 0; i < data.cards.length; i++){
-                // const $newCard = $('<img>').addClass('gameCard').attr('src', data.cards[i].image);
-                // $('.gameTable').append($newCard);
-                //     }
                 cards.push(data.cards[i]);
-                console.log(cards[0]);
-                    const $newCard = $('<img>').addClass('gameCardBack').attr('src', 'https://www.atomsindustries.com/assets/images/items/asd1743/tallyho-back.png');
-                    $('.gameTable').append($newCard);
-                        }
+                console.log(cards[i]);
+                const $newCard = $('<img>').addClass('gameCard');
+                $newCard.attr('src', 'https://www.atomsindustries.com/assets/images/items/asd1743/tallyho-back.png');
+                $newCard.attr('data-id', i);
+                $newCard.on('click', flipCard);
+                $('.gameTable').append($newCard);
+                }
+              });
+
+                //     const $newCard = $('<img>').addClass('gameCardBack').attr('src', 'https://www.atomsindustries.com/assets/images/items/asd1743/tallyho-back.png');
+                //     $('.gameTable').append($newCard);
+                //         }
                  // for (let i = 0; i < data.cards.length; i++){
                  //   const $newCard = $('<img>').attr('src', data.cards[i].image);
                  //   $clickCard.on('click',
                    // $('body').append($newCard);
-               })
-               $(event.target).on('click', (event) => {
-                 $(event.target).changeClass('gameCard').attr('src', data.cards[i].image);
-               })
-              },
+               },
               error: ()=>{
                       console.log('bad request');
           }
@@ -85,6 +94,11 @@ $(() => {
         //                 console.log('bad request');
         //     }
         //   })
+// const cards = [];
+// let flipCard = () => {
+// 	const cardId = $('.gameCard').attr('data-id');
+// 	$('.gameCard').attr('src', 'data-id');
+// };
 
 const $modal = $('#modal');
 const $closeBtn = $('#close');
