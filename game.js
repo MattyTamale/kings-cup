@@ -51,6 +51,8 @@ $(() => {
       king:"King: You are one step closer to finishing the game. If you pull a King you must pour as much of your current drink into an empty cup as you like. This will occur each time a king is drawn. Once the fourth King is drawn, the player who revealed it must drink what is in the King's Cup."
     };
 
+    const $rule = $('<h5>');
+
     // The card flipping function that will activate when clicking on a single card. It will pull the data image that is linked to the 'data-id attribute' in the initial API call.
     const flipCard = () => {
       let cardId = $(event.currentTarget).attr('data-id');
@@ -86,12 +88,12 @@ $(() => {
                 console.log(numOfImages);
                 //Carousel functionality expanded upon from exercise done in class.
                 $('.next').on('click', () => {
+                  $rule.remove();
                   //hide the current image:
                   $('.carousel-images').children().eq(currentImage).hide();
                   //increment the currentImgIndex
                   if(currentImage < numOfImages) {
                     currentImage++;
-                    console.log(currentImage);
                   } else {
                     currentImage = 0;
                   }
@@ -101,6 +103,7 @@ $(() => {
 
               //previous button:
               $('.previous').on('click', () => {
+                $rule.remove();
                 //takes the initial index image and hides it:
                 $('.carousel-images').children().eq(currentImage).hide();
                 //then decrements the current img
@@ -114,30 +117,82 @@ $(() => {
               })
                 if (data.cards[i].code === "AS") {
                   $('.carousel-images').append($cardInfo);
+                  $cardInfo.on('click', (event) => {
+                    $rule.text(cardRules.ace);
+                    $('.carousel-images').append($rule);
+                  })
               } else if (data.cards[i].code === "2C") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.two);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "3D") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.three);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "4H") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.four);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "5S") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.five);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "6C") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.six);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "7D") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.seven);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "8H") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.eight);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "9S") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.nine);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "0C") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.ten);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "JD") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.jack);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "QH") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.queen);
+                  $('.carousel-images').append($rule);
+                })
               } else if (data.cards[i].code === "KS") {
                 $('.carousel-images').append($cardInfo);
+                $cardInfo.on('click', (event) => {
+                  $rule.text(cardRules.king);
+                  $('.carousel-images').append($rule);
+                })
               }
               }
                  });
