@@ -27,7 +27,7 @@ h1 {
   text-align: center;
   font-family: 'Righteous', cursive;
   font-size: 3em;
-  margin-top: .5em;
+  margin-top: .2em;
   margin-bottom: .5em;
 }
 
@@ -36,7 +36,9 @@ p {
   padding-left: 2em;
   padding-right: 1em;
   line-height: 1.5em;
-  font-size: 16px;
+  font-size: 22px;
+  margin-top: .2em;
+  margin-bottom: .2em;
 }
 
 
@@ -65,7 +67,7 @@ img {
 
 #modal-textbox {
 	background-color: white;
-	height: 650px;
+	height: 900px;
 	width: 650px;
 	border-radius: 2px;
 	margin: 150px auto;
@@ -192,7 +194,12 @@ img {
 }
 
 
-
+.cardRule {
+  font-size: 20px;
+  font-family: 'Righteous', cursive;
+  margin-bottom: .5em;
+  margin-top: .5em;
+}
 
 
 /* animations  */

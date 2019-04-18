@@ -36,28 +36,30 @@ $(() => {
 
     //An object of all of the listed card rules. To be drawn on later.
     const cardRules = {
-      ace:'Snake Eyes: If you make eye contact with the person that drew the card then you must drink. This will last until a new person draws an Ace',
-      two:"2 is You: Choose someone to take a drink",
+      ace:'Ace is SNAKE EYES: If you make eye contact with the person that drew the card then you must drink. This will last until a new person draws an Ace',
+      two:"2 is YOU: Choose someone to take a drink",
       three:"3 is Me: Self-explanatory, take a drink champ",
-      four:"4 is Doors: Run and touch the nearest door; the last person to touch one must drink. Must choose a new door each time a 4 is drawn.",
-      five:"5 is Drive: Thumbs up! If someone points to you and says 'Vroom' then you can do one of two things: you can say 'Vroom' and point to the person next to you or say 'Errr!' and point back to the person that 'Vroom-ed' to you. This will continue until someone messes up the order.",
+      four:"4 is DOORS: Run and touch the nearest door; the last person to touch one must drink. Must choose a new door each time a 4 is drawn.",
+      five:"5 is DRIVE: Thumbs up! If someone points to you and says 'Vroom' then you can do one of two things: you can say 'Vroom' and point to the person next to you or say 'Errr!' and point back to the person that 'Vroom-ed' to you. This will continue until someone messes up the order.",
       six:"Gentlemen, take a drink.",
-      seven:"7 is Heaven: Raise both your hands, the last person to do so must take a drink.",
-      eight:"8 is Mate: Pick a person; they are now your drinking mate and must drink every time you do, but not vice versa.",
-      nine:"9 is Rhyme: Pick a word, and the person next to you must say a word that rhymes with yours. The first person to mess up or take too long to think of a word must drink. 'Orange' is forbidden.",
-      ten:"10 is Categories: Pick a category of things. The person next to you must name something from that category. If you cannot think of an item or take too long to answer then you must drink.",
-      jack:"Jack is Make a Rule: You must think of, and make a rule that must be followed for the rest of the game. Players who violate the rule must drink. Further Jack rules will be stacked on top of yours.",
-      queen:"Queen is Question Master: The player who pulled the Queen is now the question master. Anytime another player answers a question that the question master asks must drink. This will remain until another player draws a Queen and becomes the question master.",
-      king:"King: You are one step closer to finishing the game. If you pull a King you must pour as much of your current drink into an empty cup as you like. This will occur each time a king is drawn. Once the fourth King is drawn, the player who revealed it must drink what is in the King's Cup."
+      seven:"7 is HEAVEN: Raise both your hands, the last person to do so must take a drink.",
+      eight:"8 is MATE: Pick a person; they are now your drinking mate and must drink every time you do, but not vice versa.",
+      nine:"9 is RHYME: Pick a word, and the person next to you must say a word that rhymes with yours. The first person to mess up or take too long to think of a word must drink. 'Orange' is forbidden.",
+      ten:"10 is CATEGORIES: Pick a category of things. The person next to you must name something from that category. If you cannot think of an item or take too long to answer then you must drink.",
+      jack:"Jack is MAKE A RULE: You must think of and declare a rule that must be followed for the rest of the game. Players who violate the rule must drink. Further Jack rules will be stacked on top of yours.",
+      queen:"Queen is QUESTION MASTER: The player who pulled the Queen is now the question master. Anytime another player answers a question that the question master asks must drink. This will remain until another player draws a Queen and becomes the question master.",
+      king:"KING: You are one step closer to finishing the game. If you pull a King you must pour as much of your current drink into an empty cup as you like. This will occur each time a king is drawn. Once the fourth King is drawn, the player who revealed it must drink what is in the King's Cup."
     };
 
-    const $rule = $('<h5>');
+    //creates an empty h5 element that the rules above will be attached to when clicking on the associated card.
+    const $rule = $('<h5>').addClass('cardRule');
 
     // The card flipping function that will activate when clicking on a single card. It will pull the data image that is linked to the 'data-id attribute' in the initial API call.
     const flipCard = () => {
       let cardId = $(event.currentTarget).attr('data-id');
       $(event.currentTarget).toggleClass('gameCard').attr('src', card[cardId].image)
-    }
+      checkWin();
+      }
 
      //Drawing a single card at random from the deck of cards.
      $.ajax({
@@ -72,15 +74,19 @@ $(() => {
                   card.push(data.cards[i]);
                 console.log(card[i]);
                 const $newCard = $('<img>').addClass('gameCardBack');
-                $newCard.attr('src', 'https://www.atomsindustries.com/assets/images/items/asd1743/tallyho-back.png');
+                $newCard.attr('src', 'https://i.imgur.com/Bhzmq1P.png');
                 $newCard.attr('data-id', i);
                 $newCard.on('click', flipCard);
                 //save for later implementation:
                 // $('.flipper').append($newCard);
                 $('.gameTable').append($newCard);
-                }
+                // if (data.cards[i].code === "KS" && data.cards[i].code === "KH" && data.cards[i].code === "KD" && data.cards[i].code === "KC") {
+                //   alert('The Game Is Now Over!')
+                // }
+              }
             });
             $checkRules.on('click', (event) => {
+              //creating a for loop that will append images for 13 specific cards in order to display the rules for the associated cards.
               for (let i = 0; i < data.cards.length; i++){
                 const $cardInfo = $('<img>').addClass('cardInfo').attr('src', data.cards[i].image);
                 let currentImage = 0;
@@ -88,6 +94,7 @@ $(() => {
                 console.log(numOfImages);
                 //Carousel functionality expanded upon from exercise done in class.
                 $('.next').on('click', () => {
+                  //removes the current rule that is displayed
                   $rule.remove();
                   //hide the current image:
                   $('.carousel-images').children().eq(currentImage).hide();
@@ -103,6 +110,7 @@ $(() => {
 
               //previous button:
               $('.previous').on('click', () => {
+                //removes the current rule that is displayed
                 $rule.remove();
                 //takes the initial index image and hides it:
                 $('.carousel-images').children().eq(currentImage).hide();
@@ -115,8 +123,10 @@ $(() => {
                 //show the previous image:
                 $('.carousel-images').children().eq(currentImage).show();
               })
+              //conditional statement that checks for the card code of the current card index then displays the associated image if returned true.
                 if (data.cards[i].code === "AS") {
                   $('.carousel-images').append($cardInfo);
+                  //creates an event that displays the rules for the card when you click on it.
                   $cardInfo.on('click', (event) => {
                     $rule.text(cardRules.ace);
                     $('.carousel-images').append($rule);
@@ -221,10 +231,17 @@ $checkRules.on('click', openModal);
 
 $closeBtn.on('click', closeModal);
 
-//removes all existing cards from the gameTable but does not reshuffle the deck.
-// $resetGame.on('click', (event) => {
-//   $('.gameCardBack').remove();
-//   $('.gameCard').remove();
-// })
+// removes all existing cards from the gameTable but does not reshuffle the deck. The page needs to be refreshed
+$resetGame.on('click', (event) => {
+  $('.gameCardBack').remove();
+  $('.gameCard').remove();
+})
+
+const checkWin = () => {
+  let cardId = $(event.currentTarget).attr('data-id');
+  if (card[cardId].code === "KS" && card[cardId].code === "KH" && card[cardId].code === "KD" && card[cardId].code === "KC") {
+    alert('The Game Is Now Over!')
+  }
+}
 
 });
