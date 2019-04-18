@@ -147,7 +147,7 @@ img {
   height:80%;
 }
 
-
+/* carousel css html and javascript taken from class example and edited for use */
 .carousel-container {
   width: 50%;
   height: 50%;
@@ -193,6 +193,10 @@ img {
   color: white;
 }
 
+.gameButton:hover {
+  cursor: pointer;
+  background: #dd4420;
+}
 
 .cardRule {
   font-size: 20px;
@@ -202,7 +206,7 @@ img {
 }
 
 
-/* animations  */
+/* animations taken from class example for added text pop */
 @keyframes rainbow {
   0% { color: black; }
   10% { color: crimson; }

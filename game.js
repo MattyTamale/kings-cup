@@ -237,6 +237,7 @@ $resetGame.on('click', (event) => {
   $('.gameCard').remove();
 })
 
+//checkWin function; not fully fleshed out due to randomization of cards
 const checkWin = () => {
   let cardId = $(event.currentTarget).attr('data-id');
   if (card[cardId].code === "KS" && card[cardId].code === "KH" && card[cardId].code === "KD" && card[cardId].code === "KC") {
