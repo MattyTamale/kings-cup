@@ -34,6 +34,23 @@ $(() => {
     //An empty array for the card API data to be stored in for local use.
     const card = [];
 
+    //An object of all of the listed card rules. To be drawn on later.
+    const cardRules = {
+      ace:'Snake Eyes: If you make eye contact with the person that drew the card then you must drink. This will last until a new person draws an Ace',
+      two:"2 is You: Choose someone to take a drink",
+      three:"3 is Me: Self-explanatory, take a drink champ",
+      four:"4 is Doors: Run and touch the nearest door; the last person to touch one must drink. Must choose a new door each time a 4 is drawn.",
+      five:"5 is Drive: Thumbs up! If someone points to you and says 'Vroom' then you can do one of two things: you can say 'Vroom' and point to the person next to you or say 'Errr!' and point back to the person that 'Vroom-ed' to you. This will continue until someone messes up the order.",
+      six:"Gentlemen, take a drink.",
+      seven:"7 is Heaven: Raise both your hands, the last person to do so must take a drink.",
+      eight:"8 is Mate: Pick a person; they are now your drinking mate and must drink every time you do, but not vice versa.",
+      nine:"9 is Rhyme: Pick a word, and the person next to you must say a word that rhymes with yours. The first person to mess up or take too long to think of a word must drink. 'Orange' is forbidden.",
+      ten:"10 is Categories: Pick a category of things. The person next to you must name something from that category. If you cannot think of an item or take too long to answer then you must drink.",
+      jack:"Jack is Make a Rule: You must think of, and make a rule that must be followed for the rest of the game. Players who violate the rule must drink. Further Jack rules will be stacked on top of yours.",
+      queen:"Queen is Question Master: The player who pulled the Queen is now the question master. Anytime another player answers a question that the question master asks must drink. This will remain until another player draws a Queen and becomes the question master.",
+      king:"King: You are one step closer to finishing the game. If you pull a King you must pour as much of your current drink into an empty cup as you like. This will occur each time a king is drawn. Once the fourth King is drawn, the player who revealed it must drink what is in the King's Cup."
+    };
+
     // The card flipping function that will activate when clicking on a single card. It will pull the data image that is linked to the 'data-id attribute' in the initial API call.
     const flipCard = () => {
       let cardId = $(event.currentTarget).attr('data-id');
@@ -67,6 +84,7 @@ $(() => {
                 let currentImage = 0;
                 let numOfImages = data.cards.length - 40;
                 console.log(numOfImages);
+                //Carousel functionality expanded upon from exercise done in class.
                 $('.next').on('click', () => {
                   //hide the current image:
                   $('.carousel-images').children().eq(currentImage).hide();
@@ -131,6 +149,7 @@ $(() => {
 
 
 //Creating the Check Rules Modal; will eventually contain carousel.
+//Modal outline was used from the modal exercise performed in class.
 const $modal = $('#modal');
 const $closeBtn = $('#close');
 
