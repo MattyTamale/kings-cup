@@ -64,35 +64,35 @@ $(() => {
             $checkRules.on('click', (event) => {
               for (let i = 0; i < data.cards.length; i++){
                 const $cardInfo = $('<img>').addClass('cardInfo').attr('src', data.cards[i].image);
-                let currentImgIndex = 0;
+                let currentImage = 0;
                 let numOfImages = data.cards.length - 40;
                 console.log(numOfImages);
                 $('.next').on('click', () => {
                   //hide the current image:
-                  $('.carousel-images').children().eq(currentImgIndex).hide();
+                  $('.carousel-images').children().eq(currentImage).hide();
                   //increment the currentImgIndex
-                  if(currentImgIndex < numOfImages) {
-                    currentImgIndex++;
-                    console.log(currentImgIndex);
+                  if(currentImage < numOfImages) {
+                    currentImage++;
+                    console.log(currentImage);
                   } else {
-                    currentImgIndex = 0;
+                    currentImage = 0;
                   }
                   //show the next image:
-                  $('.carousel-images').children().eq(currentImgIndex).show();
+                  $('.carousel-images').children().eq(currentImage).show();
                 })
 
               //previous button:
               $('.previous').on('click', () => {
-                //hide current image:
-                $('.carousel-images').children().eq(currentImgIndex).hide();
-                //decrement the currentImgIndex
-                if(currentImgIndex > 0) {
-                  currentImgIndex--;
+                //takes the initial index image and hides it:
+                $('.carousel-images').children().eq(currentImage).hide();
+                //then decrements the current img
+                if(currentImage > 0) {
+                  currentImage--;
                 } else {
-                  currentImgIndex = numOfImages;
+                  currentImage = numOfImages;
                 }
                 //show the previous image:
-                $('.carousel-images').children().eq(currentImgIndex).show();
+                $('.carousel-images').children().eq(currentImage).show();
               })
                 if (data.cards[i].code === "AS") {
                   $('.carousel-images').append($cardInfo);
@@ -147,10 +147,10 @@ $checkRules.on('click', openModal);
 
 $closeBtn.on('click', closeModal);
 
-//removes all existing cards from the gameTable.
-$resetGame.on('click', (event) => {
-  $('.gameCardBack').remove();
-  $('.gameCard').remove();
-})
+//removes all existing cards from the gameTable but does not reshuffle the deck.
+// $resetGame.on('click', (event) => {
+//   $('.gameCardBack').remove();
+//   $('.gameCard').remove();
+// })
 
 });
