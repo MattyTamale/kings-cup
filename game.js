@@ -65,7 +65,7 @@ $(() => {
               for (let i = 0; i < data.cards.length; i++){
                 const $cardInfo = $('<img>').addClass('cardInfo').attr('src', data.cards[i].image);
                 let currentImgIndex = 0;
-                let numOfImages = data.cards.length - 39;
+                let numOfImages = data.cards.length - 40;
                 console.log(numOfImages);
                 $('.next').on('click', () => {
                   //hide the current image:
@@ -73,6 +73,7 @@ $(() => {
                   //increment the currentImgIndex
                   if(currentImgIndex < numOfImages) {
                     currentImgIndex++;
+                    console.log(currentImgIndex);
                   } else {
                     currentImgIndex = 0;
                   }
@@ -111,7 +112,7 @@ $(() => {
                 $('.carousel-images').append($cardInfo);
               } else if (data.cards[i].code === "9S") {
                 $('.carousel-images').append($cardInfo);
-              } else if (data.cards[i].code === "10C") {
+              } else if (data.cards[i].code === "0C") {
                 $('.carousel-images').append($cardInfo);
               } else if (data.cards[i].code === "JD") {
                 $('.carousel-images').append($cardInfo);
