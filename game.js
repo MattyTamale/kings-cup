@@ -68,7 +68,7 @@ $(() => {
               dataType: "json",
               success: (data)=>{
                  console.log(data);
-      //Creates a for loop that appends every card image to the body, for now
+      //Creates a for loop that appends every card image to the body
             $clickCard.on('click', (event) => {
               for (let i = 0; i < data.cards.length; i++){
                   card.push(data.cards[i]);
